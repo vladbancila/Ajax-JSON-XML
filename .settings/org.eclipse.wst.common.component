@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="2016-03-16-Ajax_JSON_masini">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="2016_03_16_AJAX_JSON_masini"/>
+        <property name="java-output-path" value="/2016-03-16-Ajax_JSON_masini/build/classes"/>
+    </wb-module>
+</project-modules>
