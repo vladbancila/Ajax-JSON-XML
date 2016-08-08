@@ -93,8 +93,8 @@
 	function init() {
 		completeField = document.getElementById("complete-field");
 		completeTable = document.getElementById("complete-table");
-	    autoRow = document.getElementById("auto-row");
-	    completeTable.style.top = getElementY(autoRow) + "px";
+		autoRow = document.getElementById("auto-row");
+		completeTable.style.top = getElementY(autoRow) + "px";
 	}
 
 	function doCompletion() {
@@ -120,90 +120,92 @@
 
 	function callback() {
 
-		 clearTable();
-		 
+		clearTable();
+
 		if (req.readyState == 4) {
 			if (req.status == 200) {
 				parseMessages(req.responseXML);
 			}
 		}
 	}
-	
-	function appendComposer(firstName,lastName,composerId) {
 
-	    var row;
-	    var cell;
-	    var linkElement;
+	function appendComposer(firstName, lastName, composerId) {
 
-	    if (isIE) {
-	        completeTable.style.display = 'block';
-	        row = completeTable.insertRow(completeTable.rows.length);
-	        cell = row.insertCell(0);
-	    } else {
-	        completeTable.style.display = 'table';
-	        row = document.createElement("tr");
-	        cell = document.createElement("td");
-	        row.appendChild(cell);
-	        completeTable.appendChild(row);
-	    }
+		var row;
+		var cell;
+		var linkElement;
 
-	    cell.className = "popupCell";
+		if (isIE) {
+			completeTable.style.display = 'block';
+			row = completeTable.insertRow(completeTable.rows.length);
+			cell = row.insertCell(0);
+		} else {
+			completeTable.style.display = 'table';
+			row = document.createElement("tr");
+			cell = document.createElement("td");
+			row.appendChild(cell);
+			completeTable.appendChild(row);
+		}
 
-	    linkElement = document.createElement("a");
-	    linkElement.className = "popupItem";
-	    linkElement.setAttribute("href", "autocomplete?action=lookup&id=" + composerId);
-	    linkElement.appendChild(document.createTextNode(firstName + " " + lastName));
-	    cell.appendChild(linkElement);
+		cell.className = "popupCell";
+
+		linkElement = document.createElement("a");
+		linkElement.className = "popupItem";
+		linkElement.setAttribute("href", "autocomplete?action=lookup&id="
+				+ composerId);
+		linkElement.appendChild(document.createTextNode(firstName + " "
+				+ lastName));
+		cell.appendChild(linkElement);
 	}
 
-	function getElementY(element){
+	function getElementY(element) {
 
-	    var targetTop = 0;
+		var targetTop = 0;
 
-	    if (element.offsetParent) {
-	        while (element.offsetParent) {
-	            targetTop += element.offsetTop;
-	            element = element.offsetParent;
-	        }
-	    } else if (element.y) {
-	        targetTop += element.y;
-	    }
-	    return targetTop;
+		if (element.offsetParent) {
+			while (element.offsetParent) {
+				targetTop += element.offsetTop;
+				element = element.offsetParent;
+			}
+		} else if (element.y) {
+			targetTop += element.y;
+		}
+		return targetTop;
 	}
 
 	function clearTable() {
-	    if (completeTable.getElementsByTagName("tr").length > 0) {
-	        completeTable.style.display = 'none';
-	        for (loop = completeTable.childNodes.length -1; loop >= 0 ; loop--) {
-	            completeTable.removeChild(completeTable.childNodes[loop]);
-	        }
-	    }
+		if (completeTable.getElementsByTagName("tr").length > 0) {
+			completeTable.style.display = 'none';
+			for (loop = completeTable.childNodes.length - 1; loop >= 0; loop--) {
+				completeTable.removeChild(completeTable.childNodes[loop]);
+			}
+		}
 	}
 
 	function parseMessages(responseXML) {
 
-	    // no matches returned
-	    if (responseXML == null) {
-	        return false;
-	    } else {
+		// no matches returned
+		if (responseXML == null) {
+			return false;
+		} else {
 
-	        var composers = responseXML.getElementsByTagName("composers")[0];
+			var composers = responseXML.getElementsByTagName("composers")[0];
 
-	        if (composers.childNodes.length > 0) {
-	            completeTable.setAttribute("bordercolor", "black");
-	            completeTable.setAttribute("border", "1");
+			if (composers.childNodes.length > 0) {
+				completeTable.setAttribute("bordercolor", "black");
+				completeTable.setAttribute("border", "1");
 
-	            for (loop = 0; loop < composers.childNodes.length; loop++) {
-	                var composer = composers.childNodes[loop];
-	                var firstName = composer.getElementsByTagName("firstName")[0];
-	                var lastName = composer.getElementsByTagName("lastName")[0];
-	                var composerId = composer.getElementsByTagName("id")[0];
-	                appendComposer(firstName.childNodes[0].nodeValue,
-	                    lastName.childNodes[0].nodeValue,
-	                    composerId.childNodes[0].nodeValue);
-	            }
-	        }
-	    }
+				for (loop = 0; loop < composers.childNodes.length; loop++) {
+					var composer = composers.childNodes[loop];
+					var firstName = composer.getElementsByTagName("firstName")[0];
+					var lastName = composer.getElementsByTagName("lastName")[0];
+					var composerId = composer.getElementsByTagName("id")[0];
+					appendComposer(firstName.childNodes[0].nodeValue,
+							lastName.childNodes[0].nodeValue,
+							composerId.childNodes[0].nodeValue);
+				}
+			}
+		}
 	}
 </script>
 <%-- ${pageContext.request.contextPath} --%>
@@ -243,6 +245,7 @@
 
 	<h1>Aici se va aduaga javaScript pentru a intoarce instant o
 		valoare utilizand AJAX si XML</h1>
+		<p>Aceasta sectiune initiaza o selectie automata si instanta a numelui cautat.</p>
 
 	<form name="autofillform" action="autocomplete">
 		<table>
@@ -254,20 +257,18 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><strong>Numele Cautat:</strong></td>
+					<td><strong>Numele Cautat :</strong></td>
 					<td><input type="text" size="40" id="complete-field"
 						onkeyup="doCompletion();"></td>
 				</tr>
 				<tr>
 					<td id="auto-row" colspan="2">
-						<table id="complete-table"/>
+						<table id="complete-table" />
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
-
-
 </body>
 </html>
 

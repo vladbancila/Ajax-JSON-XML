@@ -11,7 +11,9 @@ public class ComposerData {
     }
 
     public ComposerData() {
-
+    	// Daca facem cautare in baza de date vom utiliza o conditie de tip WHERE titlu LIKE '%exe%' 
+    	// ,unde exe este inputul introdus de user in campul de tip imput cu ajutor de java script
+    	
         composers.put("1", new Composer("1", "Johann Sebastian", "Bach", "Baroque"));
         composers.put("2", new Composer("2", "Arcangelo", "Corelli", "Baroque"));
         composers.put("3", new Composer("3", "George Frideric", "Handel", "Baroque"));
